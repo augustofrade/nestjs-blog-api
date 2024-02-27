@@ -3,7 +3,7 @@ import { CreateBlogDto } from './dto/create-blog.dto';
 import { UpdateBlogDto } from './dto/update-blog.dto';
 
 @Injectable()
-export class BlogService {
+export class BlogsService {
   create(createBlogDto: CreateBlogDto) {
     return 'This action adds a new blog';
   }

@@ -11,5 +11,5 @@ export class Blog {
 
     @OneToOne(() => User, user => user.id)
     @JoinColumn()
-    author: User;
+    owner: User;
 }

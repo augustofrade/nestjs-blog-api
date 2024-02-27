@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { BlogModule } from './blog/blog.module';
+import { BlogsModule } from './blogs/blogs.module';
 import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
 import { Profile } from './profiles/entities/profile.entity';
-import { Blog } from './blog/entities/blog.entity';
+import { Blog } from './blogs/entities/blog.entity';
 import { ConfigModule } from '@nestjs/config';
 import { ProfilesModule } from './profiles/profiles.module';
+import { PostsModule } from './posts/posts.module';
 
 @Module({
   imports: [
@@ -25,9 +26,10 @@ import { ProfilesModule } from './profiles/profiles.module';
     ConfigModule.forRoot({
       isGlobal: true
     }),
-    BlogModule,
+    BlogsModule,
     UsersModule,
-    ProfilesModule
+    ProfilesModule,
+    PostsModule
   ],
   controllers: [],
   providers: [],

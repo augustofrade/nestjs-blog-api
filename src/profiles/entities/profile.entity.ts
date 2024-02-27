@@ -1,7 +1,7 @@
-import { User } from "src/users/entities/user.entity";
-import { Column, CreateDateColumn, Entity, Generated, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { Gender } from "../types/gender.enum";
-import { Blog } from "src/blog/entities/blog.entity";
+import { User } from 'src/users/entities/user.entity';
+import { Column, CreateDateColumn, Entity, Generated, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+
+import { Gender } from '../types/gender.enum';
 
 @Entity()
 export class Profile {
