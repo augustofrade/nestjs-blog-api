@@ -3,9 +3,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { BlogModule } from './blog/blog.module';
 import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
-import { Profile } from './users/profiles/entities/profile.entity';
+import { Profile } from './profiles/entities/profile.entity';
 import { Blog } from './blog/entities/blog.entity';
 import { ConfigModule } from '@nestjs/config';
+import { ProfilesModule } from './profiles/profiles.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { ConfigModule } from '@nestjs/config';
     }),
     BlogModule,
     UsersModule,
+    ProfilesModule
   ],
   controllers: [],
   providers: [],

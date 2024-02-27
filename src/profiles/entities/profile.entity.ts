@@ -1,5 +1,5 @@
 import { User } from "src/users/entities/user.entity";
-import { Column, CreateDateColumn, Entity, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, Generated, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Gender } from "../types/gender.enum";
 import { Blog } from "src/blog/entities/blog.entity";
 
@@ -8,14 +8,12 @@ export class Profile {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column("uuid")
+    @Column()
+    @Generated("uuid")
     uuid: string;
 
     @OneToOne(() => User, user => user.id)
     user: User;
-
-    @OneToOne(() => Blog, blog => blog.id)
-    blog: Blog;
 
     @Column({
         length: 20,

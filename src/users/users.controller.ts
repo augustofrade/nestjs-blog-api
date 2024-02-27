@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Ip, NotFoundException, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, InternalServerErrorException, Ip, NotFoundException, Param, Post, Put } from "@nestjs/common";
 
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
@@ -13,7 +13,12 @@ export class UsersController {
   @Post()
   async create(@Body() createUserDto: CreateUserDto, @Ip() ip: string) {
     createUserDto.ip = ip;
-    return await this.userService.create(createUserDto);
+    const user = await this.userService.create(createUserDto);
+    if(user == null)
+      throw new InternalServerErrorException("Could not create user");
+
+    const { username, email } = user;
+    return { username, email };
   }
 
   @Get()
@@ -23,7 +28,7 @@ export class UsersController {
 
   @Get(":username")
   async findOne(@Param("username", FindUserPipe) user: User) {
-    const { ip, password, id, ...result } = user;
+    const { ip, password, id, email, ...result } = user;
     return result;
   }
 

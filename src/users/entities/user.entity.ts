@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcrypt';
 import { BeforeInsert, Column, Entity, Index, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-import { Profile } from '../profiles/entities/profile.entity';
+import { Profile } from '../../profiles/entities/profile.entity';
 
 @Entity()
 export class User {
