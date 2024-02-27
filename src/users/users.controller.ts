@@ -1,34 +1,42 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { Body, Controller, Delete, Get, Ip, NotFoundException, Param, Post, Put } from "@nestjs/common";
 
-@Controller('users')
+import { CreateUserDto } from "./dto/create-user.dto";
+import { UpdateUserDto } from "./dto/update-user.dto";
+import { User } from "./entities/user.entity";
+import { FindUserPipe } from "./pipes/find-user.pipe";
+import { UsersService } from "./users.service";
+
+@Controller("users")
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.create(createUserDto);
+  async create(@Body() createUserDto: CreateUserDto, @Ip() ip: string) {
+    createUserDto.ip = ip;
+    return await this.userService.create(createUserDto);
   }
 
   @Get()
-  findAll() {
-    return this.userService.findAll();
+  async findAll() {
+    return await this.userService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(+id);
+  @Get(":username")
+  async findOne(@Param("username", FindUserPipe) user: User) {
+    const { ip, password, id, ...result } = user;
+    return result;
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+  @Put(":username")
+  async update(@Param("username") username: string, @Body() updateUserDto: UpdateUserDto) {
+    const user = await this.userService.update(username, updateUserDto);
+    if(user == null)
+      throw new NotFoundException("User not found");
+    return user;
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+  @Delete(":username")
+  async remove(@Param("username", FindUserPipe) user: User) {
+    return await this.userService.remove(user);
   }
 }

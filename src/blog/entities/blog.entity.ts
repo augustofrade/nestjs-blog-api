@@ -1,5 +1,5 @@
-import { Profile } from "src/users/profiles/entities/profile.entity";
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { User } from 'src/users/entities/user.entity';
+import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Blog {
@@ -9,7 +9,7 @@ export class Blog {
     @Column({ length: 25 })
     slug: string;
 
-    @OneToOne(() => Profile, profile => profile.id)
+    @OneToOne(() => User, user => user.id)
     @JoinColumn()
-    author: Profile;
+    author: User;
 }

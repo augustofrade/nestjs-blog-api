@@ -1,5 +1,5 @@
 import * as bcrypt from 'bcrypt';
-import { BeforeInsert, Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { BeforeInsert, Column, Entity, Index, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 import { Profile } from '../profiles/entities/profile.entity';
 
@@ -8,11 +8,16 @@ export class User {
     @PrimaryGeneratedColumn()   
     id: number;
 
-    @Column("uuid")
-    uuid: string;
+    @Column({
+        length: 25,
+        unique: true
+    })
+    @Index()
+    username: string;
 
     @Column({
-        length: "25"
+        length: 25,
+        unique: true
     })
     email: string;
 
